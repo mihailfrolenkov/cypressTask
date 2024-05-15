@@ -78,6 +78,7 @@ describe('e2e task test', () => {
     checkoutPage.completeHeader().should('have.text', Checkout.completeHeader)
     checkoutPage.completeBody().should('have.text', Checkout.completeBody)
     //logout and verify login page
+    
     checkoutPage.backHomeButton().click()
     sidePanel.sidePanelButton().click()
     sidePanel.logoutButton().click()
