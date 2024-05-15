@@ -35,3 +35,9 @@ class Inventory {
 }
 
 export default Inventory;
+
+export const addToCartFleeceJacket = () => {
+    const inventoryPage = new Inventory();
+    inventoryPage.addToCartFleeceJacket().should('is.visible')
+    inventoryPage.addToCartFleeceJacket().click()
+};

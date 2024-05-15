@@ -55,3 +55,14 @@ class Checkout {
 }
 
     export default Checkout;
+
+    export const enterCheckoutDetails = (name: string, surname: string, postalCode: string) => {
+        const checkoutPage = new Checkout();
+        checkoutPage.nameInput().clear()
+        checkoutPage.nameInput().type(name)
+        checkoutPage.lastNameInput().clear()
+        checkoutPage.lastNameInput().type(surname)
+        checkoutPage.postalCodeInput().clear()
+        checkoutPage.postalCodeInput().type(postalCode)
+        checkoutPage.continueButton().click()
+    }

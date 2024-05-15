@@ -3,6 +3,9 @@ import Login from '../page-objects/login'
 import Cart from '../page-objects/cart'
 import Checkout from '../page-objects/checkout';
 import SidePanel from '../page-objects/sidePanel';
+import { login } from '../page-objects/login';
+import { addToCartFleeceJacket } from '../page-objects/inventory';
+import { enterCheckoutDetails } from '../page-objects/checkout';
 const loginPage = new Login();
 const inventoryPage = new Inventory();
 const cartPage = new Cart();
@@ -35,16 +38,11 @@ describe('e2e task test', () => {
     loginPage.errorMessage().should('have.text', Login.errorWrongCredentials)
     //successful login
 
-    loginPage.usernameInput().clear()
-    loginPage.passwordInput().clear()
-    loginPage.usernameInput().type('standard_user')
-    loginPage.passwordInput().type('secret_sauce')
-    loginPage.loginButton().click()
+    login('standard_user', 'secret_sauce')
     cy.url().should('eq', Inventory.inventoryUrl)
-    //add fleece jacket to a cart and chech UI
-
-    inventoryPage.addToCartFleeceJacket().should('is.visible')
-    inventoryPage.addToCartFleeceJacket().click()
+    //add fleece jacket to a cart and check UI
+    addToCartFleeceJacket()
+    inventoryPage.shoppingCartButton().click()
     inventoryPage.shoppingCartCountBadge().should('is.visible')
     inventoryPage.shoppingCartCountBadge().should('have.text', '1')
     inventoryPage.removeFromCartFleeceJacket().should('is.visible')
@@ -56,9 +54,8 @@ describe('e2e task test', () => {
     cartPage.cartItem().should('not.exist')
     inventoryPage.continueShoppingButton().click()
     //re-add item and open cart page
-    inventoryPage.addToCartFleeceJacket().click()
+    addToCartFleeceJacket()
     inventoryPage.shoppingCartButton().click()
-
     //check that item is in a cart
     cartPage.cartItem().should('is.visible')
     cartPage.cartItemName().should('have.text', Inventory.fleeceJacketName)
@@ -69,16 +66,11 @@ describe('e2e task test', () => {
 
     cartPage.checkoutButton().click()
     cy.url().should('eq', Checkout.checkoutUrlOne)
-    checkoutPage.nameInput().clear()
-    checkoutPage.nameInput().type('Tester')
-    checkoutPage.lastNameInput().clear()
-    checkoutPage.lastNameInput().type('Testington')
-    checkoutPage.postalCodeInput().clear()
-    checkoutPage.postalCodeInput().type('LV1016')
-    checkoutPage.continueButton().click()
+    enterCheckoutDetails("Tester", "Testerson", "LV9999")
     cy.url().should('eq', Checkout.checkoutUrlTwo)
     checkoutPage.finishButton().click()
     cy.url().should('eq', Checkout.checkoutUrlComplete)
+    // check completion UI
     checkoutPage.completeLogo().should('is.visible')
     checkoutPage.completeHeader().should('have.text', Checkout.completeHeader)
     checkoutPage.completeBody().should('have.text', Checkout.completeBody)
