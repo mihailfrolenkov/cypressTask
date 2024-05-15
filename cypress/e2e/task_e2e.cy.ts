@@ -25,9 +25,11 @@ describe('e2e task test', () => {
 
     loginPage.loginButton().click()
     loginPage.errorMessage().should('have.text', Login.errorUsernameBlank)
+    loginPage.usernameInput().clear()
     loginPage.usernameInput().type('abc')
     loginPage.loginButton().click()
     loginPage.errorMessage().should('have.text', Login.errorPasswordBlank)
+    loginPage.passwordInput().clear()
     loginPage.passwordInput().type('abc')
     loginPage.loginButton().click()
     loginPage.errorMessage().should('have.text', Login.errorWrongCredentials)
@@ -67,8 +69,11 @@ describe('e2e task test', () => {
 
     cartPage.checkoutButton().click()
     cy.url().should('eq', Checkout.checkoutUrlOne)
+    checkoutPage.nameInput().clear()
     checkoutPage.nameInput().type('Tester')
+    checkoutPage.lastNameInput().clear()
     checkoutPage.lastNameInput().type('Testington')
+    checkoutPage.postalCodeInput().clear()
     checkoutPage.postalCodeInput().type('LV1016')
     checkoutPage.continueButton().click()
     cy.url().should('eq', Checkout.checkoutUrlTwo)
@@ -78,7 +83,7 @@ describe('e2e task test', () => {
     checkoutPage.completeHeader().should('have.text', Checkout.completeHeader)
     checkoutPage.completeBody().should('have.text', Checkout.completeBody)
     //logout and verify login page
-    
+
     checkoutPage.backHomeButton().click()
     sidePanel.sidePanelButton().click()
     sidePanel.logoutButton().click()

@@ -27,6 +27,7 @@ describe('Api task test', () => {
                 expect(response.status).to.eq(200);
                 expect(response.statusText).to.eq("OK");
                 expect(response.body).to.deep.equal(addUser);
+                //you better also get a user list to verify, but can`t do with fake api`s
             });
         });
     })
@@ -44,6 +45,7 @@ describe('Api task test', () => {
                 expect(response.status).to.eq(400);
                 expect(response.statusText).to.eq("Bad Request");
                 expect(response.body.title).to.eq("One or more validation errors occurred.");
+                //you better also get a user list to verify, but can`t do with fake api`s
             });
         });
     })
@@ -62,6 +64,7 @@ describe('Api task test', () => {
                 expect(response.status).to.eq(200);
                 expect(response.statusText).to.eq("OK");
                 expect(response.body).to.deep.equal(addUser);
+                //you better also get a user list to verify, but can`t do with fake api`s
             });
         });
     })
@@ -79,6 +82,7 @@ describe('Api task test', () => {
                 expect(response.status).to.eq(400);
                 expect(response.statusText).to.eq("Bad Request");
                 expect(response.body.title).to.eq("One or more validation errors occurred.");
+                //you better also get a user list to verify, but can`t do with fake api`s
             });
         });
     })
@@ -88,6 +92,7 @@ describe('Api task test', () => {
         cy.request('DELETE', Cypress.env().baseUrl + ApiConst.usersEndpoint + "/11").then((response) => {
             expect(response.status).to.eq(200);
             expect(response.statusText).to.eq("OK");
+            //you better also get a user list to verify, but can`t do with fake api`s
         });
     });
 })
